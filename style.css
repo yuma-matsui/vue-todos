@@ -1,0 +1,56 @@
+form, .edit-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+form .form-block, .edit-wrapper .form-block {
+  margin-bottom: 5px;
+}
+form .form-block:first-of-type label, .edit-wrapper .form-block:first-of-type label {
+  margin-right: 5px;
+}
+form .form-block:last-of-type, .edit-wrapper .form-block:last-of-type {
+  margin-bottom: 15px;
+}
+form .form-block:last-of-type label, .edit-wrapper .form-block:last-of-type label {
+  font-size: 0.875rem;
+}
+form input[type=submit], .edit-wrapper input[type=submit] {
+  display: inline-block;
+  width: 80px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.todo-items ul {
+  padding: 0;
+}
+.todo-items ul li {
+  display: flex;
+  align-items: center;
+}
+.todo-items ul li button {
+  display: inline-block;
+  margin-left: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.high-priority {
+  color: goldenrod;
+  font-weight: bold;
+}
+
+.edit-form {
+  display: flex;
+  font-size: 0.875rem;
+}
+.edit-form label {
+  margin-right: 5px;
+}
+
+.done {
+  text-decoration: line-through;
+}/*# sourceMappingURL=style.css.map */
