@@ -4,89 +4,118 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>app6</title>
   <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
-  <div id="todo-app">
-    <h1>{{ mainTitle }}</h1>
-
-    <div class="todo-items">
-      <template v-if="existTodoItems">
-        <ul>
-          <li
-            v-for="(item, index) in todoItems"
-            key="item.id"
-          >
-            <template v-if="item.editable">
-              <div class="edit-form">
-                <div class="edit-input">
-                  <label for="edited-title">タイトル</label>
-                  <input
-                    type="text"
-                    id="edited-title"
-                    placeholder="Input a todo title."
-                    v-model="item.title"
-                  />
-                </div>
-                <div class="edit-input">
-                  <input
-                  type="checkbox"
-                  id="edited-high-priority"
-                  v-model="item.highPriority"
-                  />
-                  <label for="edited-high-priority">HighPriority</label>
-                </div>
-                <div class="edit-input">
-                  <input
-                  type="checkbox"
-                  v-model="item.done"
-                  id="edited-done"
-                  >
-                  <label for="edited-done">Done?</label>
-                </div>
-                <button @click="updateItem(item)">更新</button>
-              </div>
-            </template>
-            <template v-else>
-              <p :class="itemStatus(item)">
-                {{ item.title }}
-              </p>
-              <button @click="editItem(item)">編集</button>
-              <button @click="deleteItem(index)">削除</button>
-            </template>
-          </li>
-        </ul>
-      </template>
+  <div id="app">
+  </div>
+  
+  <script src="./main.js" type="module"></script>
+  <script type="text/x-template" id="todo-app">
+    <div class="main-container">
+      <h1>{{ mainTitle }}</h1>
+  
+      <div class="todo-items">
+        <template v-if="existTodoItems">
+          <ul>
+            <li
+              v-for="(item, index) in todoItems"
+              key="item.id"
+            >
+              <template v-if="item.editable">
+                <todo-update-form
+                  :item="item"
+                  :index="index"
+                  @update-item="updateItem"
+                />
+              </template>
+  
+              <template v-else>
+                <p :class="itemStatus(item)">
+                  {{ item.title }}
+                </p>
+                <todo-edit-button
+                  :item="item"
+                  @edit-item="editItem"
+                />
+                <todo-delete-button
+                  :index="index"
+                  @delete-item="deleteItem"
+                />
+              </template>
+            </li>
+          </ul>
+        </template>
+      </div>
+      <todo-form
+      @add-todo-item="addTodoItem"
+      />
     </div>
-
-
-    <div class="form-wrapper">
-      <h2>Add Items</h2>
-      <form @submit.prevent>
-        <div class="form-block">
-          <label for="title">タイトル</label>
-          <input
-            type="text"
-            id="title"
-            placeholder="Input a todo title."
-            v-model="newTodoItem.title"
-          />
-        </div>
-        <div class="form-block">
-          <input
+  </script>
+  <script type="text/x-template" id="todo-edit-button">
+    <button @click="editItem">編集</button>
+  </script>
+  <script type="text/x-template" id="todo-delete-button">
+    <button @click="deleteItem">削除</button>
+  </script>
+  <script type="text/x-template" id="todo-form">
+    <h2>Add New Task</h2>
+    <form @submit.prevent>
+      <div class="form-block">
+        <label for="title">タイトル</label>
+        <input
+          type="text"
+          id="title"
+          placeholder="Input a todo title."
+          v-model="newTodoItem.title"
+        >
+      </div>
+      <div class="form-block">
+        <input
           type="checkbox"
           id="high-priority"
           v-model="newTodoItem.highPriority"
-          />
-          <label for="high-priority">HighPriority</label>
-        </div>
-        <input type="submit" value="ADD" @click="addTodoItem">
-      </form>
+        >
+        <label for="high-priority">HighPriority</label>
+      </div>
+      <input
+        type="submit"
+        value="追加"
+        @click="addTodoItem"
+      >
+    </form>
+  </script>
+  <script type="text/x-template" id="todo-update-form">
+    <div class="edit-form">
+      <div class="edit-input">
+        <label for="edited-title">タイトル</label>
+        <input
+          type="text"
+          id="edited-title"
+          placeholder="Input a todo title."
+          v-model="item.title"
+        />
+      </div>
+      <div class="edit-input">
+        <input
+          type="checkbox"
+          id="edited-high-priority"
+          v-model="item.highPriority"
+        />
+        <label for="edited-high-priority">HighPriority</label>
+      </div>
+      <div class="edit-input">
+        <input
+          type="checkbox"
+          id="edited-done"
+          v-model="item.done"
+        />
+        <label for="edited-done">Done?</label>
+      </div>
+      <button @click="updateItem">更新</button>
     </div>
-  </div>
-  
-  <script src="./main.js"></script>
+  </script>
 </body>
 </html>
