@@ -18,7 +18,7 @@
       <h1>{{ mainTitle }}</h1>
   
       <div class="todo-items">
-        <template v-if="existTodoItems">
+        <template v-if="hasTodoItems">
           <ul>
             <li
               v-for="(item, index) in todoItems"

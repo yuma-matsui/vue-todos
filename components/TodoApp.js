@@ -25,7 +25,7 @@ export const TodoApp = {
   },
 
   computed: {
-    existTodoItems () {
+    hasTodoItems () {
       return this.todoItems.length > 0
     },
 
